@@ -1,31 +1,56 @@
+:root {
+    --bg-color: #E5DCF9;       
+    --primary: #9933FF;        
+    --secondary: #C07AFF;      
+    --accent: #FD79FF;         
+    --text-blue: #5FA1FF;      
+    --text-white: #FFFFFF;     
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f3e5f5; /* Bardzo jasny fioletowy na tło strony */
+    background-color: var(--bg-color);
     display: flex;
-    flex-direction: column; /* Ustawia elementy jeden pod drugim */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     margin: 0;
 }
 
-/* Styl dla tytułu na górze */
-.main-title {
-    color: #4a148c; /* Głęboki, ciemny fiolet */
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-/* Styl dla białego pudełka (karty quizu) */
 .quiz-container {
     background-color: white;
     padding: 40px;
-    border-radius: 20px; /* Bardziej zaokrąglone rogi */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Ładniejszy, miękki cień */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
     width: 90%;
     max-width: 500px;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+}
+
+/* System ukrywania ekranów */
+.screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.screen-title {
+    color: var(--text-blue);
+    margin-bottom: 90px;
+    font-size: 1.8rem;
+    margin-top: 0;
 }
 
 #question-text {
@@ -35,32 +60,120 @@ body {
     color: #333;
 }
 
-.answer-buttons {
+/* Wspólne style dla guzików */
+.btn {
+    color: var(--text-white);
+    border: none;
+    padding: 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(153, 51, 255, 0.4);
+}
+
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.btn-primary { background-color: var(--primary); }
+.btn-secondary { background-color: var(--secondary); }
+.btn-accent { background-color: var(--accent); }
+
+/* Układy przycisków - ZWĘŻONE DO 50% */
+.btn-grid-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 50%; /* Zmieniono z 80% na 50% */
+}
+
+.btn-grid { /* Odpowiedzi A,B,C,D w dwóch kolumnach - one mogą zostać szersze żeby tekst pytania się zmieścił */
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dwie kolumny przycisków */
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Ekran Kategorii */
+.top-start-btn {
+    width: 50%; /* Zmieniono z 80% na 50% */
+    margin-bottom: 25px;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+.btn-category {
+    background-color: var(--secondary);
+    opacity: 0; 
+    animation: fadeSlideIn 0.5s forwards;
+}
+
+.btn-category.selected {
+    background-color: var(--accent);
+}
+
+.category-random {
+    grid-column: span 2;
+    width: 60%;
+    justify-self: center;
+}
+
+/* Ekran Historii */
+.records-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 15px;
 }
 
-/* Styl dla fioletowych przycisków */
-.btn {
-    background-color: #7b1fa2; /* Średni fiolet */
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease; /* Animacja przy najeżdżaniu */
+.record-item {
+    background-color: var(--accent);
+    color: var(--text-white);
+    width: 50%; /* Węższe kafelki z wynikami */
+    padding: 10px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideDown 0.5s forwards;
 }
 
-/* Efekt po najechaniu myszką */
-.btn:hover {
-    background-color: #6a1b9a; /* Nieco ciemniejszy fiolet */
-    transform: translateY(-3px); /* Przycisk lekko się unosi */
-    box-shadow: 0 5px 15px rgba(123, 31, 162, 0.4);
+.mt-20 { 
+    margin-top: 20px; 
+    width: 50%; /* Zwężone przyciski "Next" i "Return" na dole */
 }
 
-.btn:active {
-    transform: translateY(0);
+/* Animacje kaskadowe */
+.btn-category:nth-child(1) { animation-delay: 0.1s; }
+.btn-category:nth-child(2) { animation-delay: 0.2s; }
+.btn-category:nth-child(3) { animation-delay: 0.3s; }
+.btn-category:nth-child(4) { animation-delay: 0.4s; }
+.btn-category:nth-child(5) { animation-delay: 0.5s; }
+
+.record-item:nth-child(1) { animation-delay: 0.2s; }
+.record-item:nth-child(2) { animation-delay: 0.4s; }
+.record-item:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translate(-20px, -20px); }
+    to { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
