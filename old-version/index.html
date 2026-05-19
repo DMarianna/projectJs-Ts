@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMania</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        
+        <div id="screen-home" class="screen active">
+            <h2 class="screen-title">Welcome to QuizMania</h2>
+            <div class="btn-grid-col">
+                <button id="btn-home-start" class="btn btn-primary">Start</button>
+                <button id="btn-view-records" class="btn btn-secondary">View last records</button>
+            </div>
+        </div>
+
+        <div id="screen-categories" class="screen">
+            <h2 class="screen-title">Choose a category</h2>
+            <button id="btn-category-start" class="btn btn-primary top-start-btn">Start</button>
+            
+            <div class="category-grid">
+                <button class="btn btn-category" data-category="Sport">Sport</button>
+                <button class="btn btn-category" data-category="Animals">Animals</button>
+                <button class="btn btn-category" data-category="Music">Music</button>
+                <button class="btn btn-category" data-category="History">History</button>
+                <button class="btn btn-category category-random" data-category="Random">Random</button>
+            </div>
+        </div>
+
+        <div id="screen-records" class="screen">
+            <h2 class="screen-title">Last records</h2>
+            <div id="records-list" class="records-container">
+                <div class="record-item">Animals <br> 4/10</div>
+                <div class="record-item">Music <br> 10/10</div>
+                <div class="record-item">Sport <br> 7/10</div>
+            </div>
+            <button id="btn-return-home" class="btn btn-primary mt-20">Return</button>
+        </div>
+
+        <div id="screen-quiz" class="screen">
+            <h2 id="category-title" class="screen-title">Category Name</h2>
+            <p id="question-text">Loading question...</p>
+            
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn btn-primary answer-btn">Answer A</button>
+                <button class="btn btn-primary answer-btn">Answer B</button>
+                <button class="btn btn-primary answer-btn">Answer C</button>
+                <button class="btn btn-primary answer-btn">Answer D</button>
+            </div>
+
+            <p id="feedback-text"></p>
+            <p id="score-text">Score: 0</p>
+            
+            <button id="btn-next" class="btn btn-accent mt-20" style="display: none;">Next Question</button>
+        </div>
+
+        <div id="screen-end" class="screen">
+             <h2 class="screen-title">Quiz Finished! 🏆</h2>
+             <p id="final-score-text" style="font-size: 20px;">Your final score is: <strong>0 / 0</strong></p>
+             <button id="btn-end-return" class="btn btn-primary mt-20">Return to Menu</button>
+        </div>
+
+    </div>
+
+    <script type="module" src="./dist/app.js"></script>
+</body>
+</html>
