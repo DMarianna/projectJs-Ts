@@ -1,19 +1,21 @@
 interface CategoryButtonProps {
   categoryName: string;
   onClick: () => void;
-  isSelected?: boolean; 
-  isRandom?: boolean;
+  isSelected?: boolean;
+  isRandom?: boolean; // Zostawione dla pełnej kompatybilności z Twoim kodem
+  iconSrc?: string;   // Dodane dla nowych ikon
 }
 
-export default function CategoryButton({ categoryName, onClick, isSelected, isRandom }: CategoryButtonProps) {
-  // Budujemy ciąg klas na podstawie propsów
-  let className = "btn btn-category";
+export default function CategoryButton({ categoryName, onClick, isSelected, isRandom, iconSrc }: CategoryButtonProps) {
+  // 1. ZARZĄDZANIE KLASAMI CSS
+  let className = "lavender-square-btn";
   if (isSelected) className += " selected";
   if (isRandom) className += " category-random";
 
   return (
     <button className={className} onClick={onClick}>
-      {categoryName}
+      {iconSrc && <img src={iconSrc} alt={categoryName} className="category-icon-img" />}
+      <span className="category-label">{categoryName}</span>
     </button>
   );
 }
